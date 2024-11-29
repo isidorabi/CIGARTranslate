@@ -1,0 +1,74 @@
+---
+title: "CIGARTranslate"
+author: 
+  name: "Isidora Bijelovic"
+  email: isidora.bijelovic@mail.polimi.it
+output: BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{CIGARTranslate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CIGARTranslate)
+```
+
+```{r style, echo = FALSE, results='asis'}
+library(BiocStyle)
+```
+
+```{r, echo=FALSE}
+library(knitr)
+```
+
+## Introduction
+
+CIGAR strings that are used to represent read alignments in BAM files can make it hard to visualize the alignment, especially if there are mismatches, insertions/deletions or clipped bases in the read with respect to the reference. The package `CIGARTranslate` contains simple functions to help visualize the alignment of a read.
+
+## Functions
+
+### read_bam("path")
+
+The function requires a path to a BAM file as the only parameter,
+
+``` r
+read_bam("path_to_my_bam")
+```
+
+and returns a DFrame object that the user can inspect in order to find an alignment ID they are interested in. The function is dependent on `Rsamtools`. `alignment_from_cigar` requires the output of `read_bam` as input.
+
+### alignment_from_cigar(bam_DFrame, alignment_ID, genome)
+
+Prints the CIGAR string, the alignment, the mapping quality and the strand.
+
+Requires the output of `read_bam` as input format for BAM, and for the alignment ID and genome assembly names to be enclosed in quotation marks. Currently only `hg19` and `hg38` are available as assembly options.
+
+Example:
+
+``` r
+alignment_from_cigar(myBam, "A00491:61:HFCF7DMXX:2:2261:11695:22686", "hg38")
+```
+
+Output:
+
+``` r
+[1] "CIGAR: 100M" 
+[1] "Ref:  TAGGGTTGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGG" 
+[1] "Read: TAGGGTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGG" 
+[1] "The mapping quality is 6" 
+[1] "Strand: -"
+```
+
+The above example shows an alignment for which the CIGAR string is 100M. In case the read maps to the minus strand, both the read sequence and the reference sequence are converted to their reverse complements (as read sequences in BAM files are stored with their reverse complemented sequence if they map to the minus strand, i.e. with what their sequence would be on the plus strand).
+
+## Example data
+
+Try it out with the short BAM provided with the package (first 5000 alignments from ENCODE ID ENCFF337LJB).

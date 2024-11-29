@@ -1,0 +1,18 @@
+Package: CIGARTranslate
+Title: Show Alignment Of Read From CIGAR String
+Version: 0.99.0
+Authors@R: 
+    person("Isidora", "Bijelovic", email = "isidora.bijelovic@mail.polimi.it", role = c("aut", "cre"),
+           comment = c(ORCID = "NA"))
+Description: This package provides functions to show the alignment of a mapped read (from a BAM file) by decoding its CIGAR string.
+Data:
+ loaded_Bam
+Depends: BSgenome.Hsapiens.UCSC.hg19, BSgenome.Hsapiens.UCSC.hg38, R (>= 4.3)
+Imports: Rsamtools, Biostrings, S4Vectors
+Suggests: knitr, rmarkdown, BiocStyle
+biocViews: Software, Alignment, Sequencing, Genetics
+License: GPL-2
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+VignetteBuilder: knitr

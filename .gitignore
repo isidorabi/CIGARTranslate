@@ -1,0 +1,16 @@
+# Ignore RStudio project settings
+.Rproj.user
+
+# Ignore built vignettes
+inst/doc/
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# Ignore macOS or Windows system files
+.DS_Store
+Thumbs.db
+
+.Rhistory
+*.Rproj
